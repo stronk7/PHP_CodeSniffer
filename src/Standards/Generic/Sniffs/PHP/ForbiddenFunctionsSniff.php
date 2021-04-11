@@ -117,6 +117,12 @@ class ForbiddenFunctionsSniff implements Sniff
      */
     public function process(File $phpcsFile, $stackPtr)
     {
+
+        // Dirty hack to force the recalculation of $this->forbiddenFunctionNames
+        // and demonstrate that recalculating forbiddenFunctionNames allows the
+        // use of phpcs:set forbiddenFunctions for this Sniff.
+        $this->register();
+
         $tokens = $phpcsFile->getTokens();
 
         $ignore = [
