@@ -21,21 +21,33 @@ class DeprecatedFunctionsUnitTest extends AbstractSniffUnitTest
      * The key of the array should represent the line number and the value
      * should represent the number of errors that should occur on that line.
      *
+     * @param string $testFile The name of the file being tested.
+     *
      * @return array<int, int>
      */
-    public function getErrorList()
+    public function getErrorList($testFile='')
     {
-        $errors = [];
 
-        if (PHP_VERSION_ID >= 70200 && PHP_VERSION_ID < 80000) {
-            $errors[3] = 1;
-        }
+        switch ($testFile) {
+        case 'DeprecatedFunctionsUnitTest.1.inc':
+            $errors = [];
 
-        if (PHP_VERSION_ID >= 70300 && PHP_VERSION_ID < 80000) {
-            $errors[4] = 1;
-        }
+            if (PHP_VERSION_ID >= 70200 && PHP_VERSION_ID < 80000) {
+                $errors[3] = 1;
+            }
 
-        return $errors;
+            if (PHP_VERSION_ID >= 70300 && PHP_VERSION_ID < 80000) {
+                $errors[4] = 1;
+            }
+            return $errors;
+        case 'DeprecatedFunctionsUnitTest.2.inc':
+            return [
+                5 => 1,
+                6 => 1,
+            ];
+        default:
+            return [];
+        }//end switch
 
     }//end getErrorList()
 
